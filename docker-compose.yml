@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  web:
+    build: .
+    container_name: bharatfdassigment
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - ./server:/app/server
+    ports:
+      - "8000:8000"
+    environment:
+      - DEBUG=1
+      - DJANGO_SECRET_KEY=your_secret_key  # Set the secret key directly in the environment
+      - DJANGO_DB_HOST=db
+      - DJANGO_DB_NAME=your_db_name
+      - DJANGO_DB_USER=your_db_user
+      - DJANGO_DB_PASSWORD=your_db_password
+      - DJANGO_DB_PORT=5432
+    depends_on:
+      - db
+
+  db:
+    image: postgres:13
+    container_name: db
+    environment:
+      - POSTGRES_DB=your_db_name
+      - POSTGRES_USER=your_db_user
+      - POSTGRES_PASSWORD=your_db_password
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+volumes:
+  postgres_data:
