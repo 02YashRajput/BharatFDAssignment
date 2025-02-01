@@ -1,3 +1,4 @@
+# Available at: https://bharatfdassignment.onrender.com
 # FAQ API
 
 This project provides an API for managing and retrieving Frequently Asked Questions (FAQs) in multiple languages. It supports automatic translation of FAQ content and caches the results for faster retrieval.
