@@ -1,4 +1,5 @@
 from rest_framework.views import APIView
+from django.core.cache import cache
 from rest_framework.response import Response
 from googletrans import Translator
 from .models import FAQ, Translation, Language
@@ -8,13 +9,16 @@ class FAQListView(APIView):
     def get(self, request, *args, **kwargs):
         lang_code = request.query_params.get('lang', 'en')
         
-        # If language is 'en' or not provided, use the original FAQ data
         if lang_code == 'en' or not lang_code:
+            cache_key = "faq_translations_en"
+            cached_faqs = cache.get(cache_key)
+            if cached_faqs:
+                return Response(cached_faqs)
             faqs = FAQ.objects.all()
             serializer = FAQSerializer(faqs, many=True)
+            cache.set(cache_key, serializer.data, timeout=None)  
             return Response(serializer.data)
         
-        # Handle translations
         try:
             language = Language.objects.get(code=lang_code)
         except Language.DoesNotExist:
@@ -24,11 +28,15 @@ class FAQListView(APIView):
                 language = Language.objects.create(code=lang_code)
             except Exception as e:
                 language = None  
+        cache_key = f"faq_translations_{lang_code}"
+        cached_translations = cache.get(cache_key)
+
+        if cached_translations:
+            return Response(cached_translations)
 
         faqs = FAQ.objects.all()
         translated_faqs = []
 
-        # Check for translations
         for faq in faqs:
             translation = None
             if language:
@@ -45,6 +53,7 @@ class FAQListView(APIView):
                     'answer': faq.answer,
                 })
 
-        # Use the TranslatedFAQSerializer for the translated FAQ response
+        cache.set(cache_key, translated_faqs, timeout=None)
+
         serializer = TranslatedFAQSerializer(translated_faqs, many=True)
         return Response(serializer.data)

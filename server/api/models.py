@@ -1,6 +1,7 @@
 from django.db import models
 from ckeditor.fields import RichTextField
 from googletrans import Translator
+from django.core.cache import cache
 
 class Language(models.Model):
     code = models.CharField(max_length=10, unique=True)  
@@ -35,15 +36,19 @@ class FAQ(models.Model):
   
   def save(self, *args, **kwargs):
     """Override save to automatically translate question and answer fields."""
+    cache_key = "faq_translations_en"
+    cache.delete(cache_key)
     super().save(*args, **kwargs)  
     
     translator = Translator()
-    existing_languages = set([t.language.code for t in Translation.objects.filter(faq=self)])
+    
 
     all_languages = Language.objects.all()
 
     for lang in all_languages:
-        if lang.code not in existing_languages:
+        if lang.code :
+            cache_key = f"faq_translations_{lang.code}"
+            cache.delete(cache_key)
             translated_question = translator.translate(self.question,src='en', dest=lang.code).text
             translated_answer = translator.translate(self.answer,src='en', dest=lang.code).text
             
