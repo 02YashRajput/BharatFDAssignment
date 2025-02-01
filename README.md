@@ -45,31 +45,46 @@ venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
-### Step 4: Move to the server directory
+### Step 4: Create a .env file
+
+```bash
+touch .env
+```
+
+### Step 5: Add the following variables to the .env file
+
+```bash
+DB_USER= postgres
+DB_PASSWORD= VasW@853G
+DB_HOST= db.pnfovyyxikhisuennqfv.supabase.co
+DB_NAME= postgres
+```
+
+### Step 6: Move to the server directory
 
 ```bash
 cd server
 ```
 
-### Step 5: Apply Database Migrations
+### Step 7: Apply Database Migrations
 Run the migrations to set up the database:
 
 ```bash
 python manage.py migrate
 ```
 
-### Step 6: Run the Development Server
+### Step 8: Run the Development Server
 
 ```bash
 python manage.py runserver
 ```
-Your application will now be accessible at http://127.0.0.1:8000.
+Your application will now be accessible at your_domain
 
 ## API Endpoints
 ### 1. Get All FAQs
 #### Request
 ```bash
-http://127.0.0.1:8000/api/faqs/ 
+your_domain/api/faqs/ 
 ```
 Optional Query Parameter: lang – The language code (e.g., en, hi, bn). If not provided, the default language is English (en).
 
