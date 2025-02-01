@@ -76,19 +76,19 @@ WSGI_APPLICATION = 'server.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-
+# Check if the pytest module is currently loaded (i.e., tests are running)
 if "pytest" in sys.modules:
     DATABASES = {
         "default": {
-            "ENGINE": "django.db.backends.sqlite3",
-            "NAME": ":memory:",  
+            "ENGINE": "django.db.backends.sqlite3",  # Use SQLite as the database engine
+            "NAME": ":memory:",  # Use an in-memory database (temporary, faster for testing)
         }
     }
 else:
     DATABASES = {
         "default": {
-            "ENGINE": "django.db.backends.sqlite3",
-            "NAME": BASE_DIR / 'db.sqlite3',  
+            "ENGINE": "django.db.backends.sqlite3",  # Use SQLite as the database engine
+            "NAME": BASE_DIR / 'db.sqlite3',  # Store database as a file in the project directory
         }
     }
 
