@@ -55,10 +55,11 @@ touch .env
 ### Step 5: Add the following variables to the .env file
 
 ```bash
-DB_USER= postgres
-DB_PASSWORD= VasW@853G
-DB_HOST= db.pnfovyyxikhisuennqfv.supabase.co
-DB_NAME= postgres
+DB_USER= <your_db_user>
+DB_PASSWORD= <your_db_password>
+DB_HOST= <yout_db_host>
+DB_NAME= <your_db_name>
+REDIS_URL = <yout_redis_url>
 ```
 
 ### Step 6: Move to the server directory
