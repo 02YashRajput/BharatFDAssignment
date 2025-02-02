@@ -1,7 +1,9 @@
 # FAQ API
 
-- Available at: https://bharatfdassignment-97kk.onrender.com .
-- For further details on deployment checkout deploy branch.
+- Deployed on Render Available at: https://bharatfdassignment-97kk.onrender.com .
+- For further details on deployment check out deploy branch.
+- Docker Image on yash02rajput/bharatfdassignment:latest .
+- For further details on docker check out docker branch.
 - This project provides an API for managing and retrieving Frequently Asked Questions (FAQs) in multiple languages. It supports automatic translation of FAQ content and caches the results for faster retrieval.
 
 ## Features
