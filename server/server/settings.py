@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
+    'django_redis',
     'api',
     'ckeditor'
 ]
@@ -60,7 +62,7 @@ ROOT_URLCONF = 'server.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'],  # Add your custom templates directory
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -145,9 +147,16 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CACHES = {
     'default': {
         'BACKEND': 'django_redis.cache.RedisCache',
-        'LOCATION': 'redis://127.0.0.1:6379/1', 
+        'LOCATION': os.getenv('REDIS_URL'), 
         'OPTIONS': {
             'CLIENT_CLASS': 'django_redis.client.DefaultClient',
         },
     }
 }
+
+
+ALLOWED_HOSTS = [
+    'bharatfdassignment-97kk.onrender.com',
+    'localhost',
+    '127.0.0.1',
+]
