@@ -1,7 +1,8 @@
 # FAQ API
 
-- Available at: https://bharatfdassignment-97kk.onrender.com
-This project provides an API for managing and retrieving Frequently Asked Questions (FAQs) in multiple languages. It supports automatic translation of FAQ content and caches the results for faster retrieval.
+- Available at: https://bharatfdassignment-97kk.onrender.com .
+- For further details on deployment checkout deploy branch.
+- This project provides an API for managing and retrieving Frequently Asked Questions (FAQs) in multiple languages. It supports automatic translation of FAQ content and caches the results for faster retrieval.
 
 ## Features
 
