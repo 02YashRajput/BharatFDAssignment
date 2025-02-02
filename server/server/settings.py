@@ -151,3 +151,9 @@ CACHES = {
         },
     }
 }
+
+ALLOWED_HOSTS = [
+    'bharatfdassignment-97kk.onrender.com',
+    'localhost',
+    '127.0.0.1',
+]
