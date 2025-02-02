@@ -11,76 +11,101 @@ This project provides an API for managing and retrieving Frequently Asked Questi
 - **Dynamic Language Support**: New languages can be added dynamically, and translations will be created using Google Translate if not already available.
 
 ## Requirements
-
-- Python 3.x
-- Django 3.x or later
-- Django Rest Framework
-- Googletrans (Google Translate API client)
-- Redis 
+- Docker
 
 ## Installation
+### Method 1: Using docker-compose with Image Pull (Automatic)
+#### Step 1: Add the following variables to the .env file
 
-### Step 1: Clone the Repository
+```bash
+DB_USER= <your_db_user>
+DB_PASSWORD= <your_db_password>
+DB_HOST= <yout_db_host>
+DB_NAME= <your_db_name>
+REDIS_URL = <yout_redis_url>
+```
+
+### Step 2: Create docker-compose.yml
+```yml
+version: '3.8'
+
+services:
+  db:
+    image: postgres:13
+    environment:
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - backend
+
+  redis:
+    image: redis:alpine
+    networks:
+      - backend
+
+  web:
+    image: yash02rajput/bharatfdassignment:latest
+    command: python server/manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+      - redis
+    networks:
+      - backend
+    env_file:
+      - <path_to_env_file>
+
+volumes:
+  postgres_data:
+
+networks:
+  backend:
+    driver: bridge
+
+```
+
+#### Step 3: Build and Run the Docker Containers
+
+Now, run the following command:
+
+```bash
+docker-compose up --build
+``` 
+This method will automatically pull the yash02rajput/bharatfdassignment:latest image if it's not already on your system.
+
+### Method 2: Using docker-compose with Image Build (Manual)
+
+#### Step 1: Clone the Repository
 
   ```bash
   git clone https://github.com/02YashRajput/BharatFDAssignment
   cd BharatFDAssignment
   ```
-### Step 2: Create and Activate a Virtual Environment
-On macOS/Linux:
+
+#### Step 2: Add the following variables to the .env file
 
 ```bash
-python3 -m venv venv
-source venv/bin/activate
+DB_USER= <your_db_user>
+DB_PASSWORD= <your_db_password>
+DB_HOST= <yout_db_host>
+DB_NAME= <your_db_name>
+REDIS_URL = <yout_redis_url>
 ```
-On Windows:
+
+#### Step 3: Build and Run the Docker Containers
+Once you have cloned the repository, navigate to the project directory and run the following command to build and start the services defined in the docker-compose.yml file:
 
 ```bash
-python -m venv venv
-venv\Scripts\activate
+docker-compose up --build
 ```
 
-### Step 3: Install Dependencies
-
-```bash
-pip install -r requirements.txt
-```
-
-### Step 4: Create a .env file
-
-```bash
-touch .env
-```
-
-### Step 5: Add the following variables to the .env file
-
-```bash
-DB_USER= <your_username>
-DB_PASSWORD= <your_password>
-DB_HOST= <your_host>
-DB_NAME= <your_database_name>
-REDIS_URL= <your_redis_url>
-```
-
-### Step 6: Move to the server directory
-
-```bash
-cd server
-```
-
-### Step 7: Apply Database Migrations
-Run the migrations to set up the database:
-
-```bash
-python manage.py migrate
-```
-
-### Step 8: Run the Development Server
-
-```bash
-python manage.py runserver
-```
-Your application will now be accessible at your_domain
+Your application will now be accessible at http://0.0.0.0:8000
 
 ## API Endpoints
 ### 1. Get All FAQs
