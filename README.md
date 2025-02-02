@@ -55,10 +55,11 @@ touch .env
 ### Step 5: Add the following variables to the .env file
 
 ```bash
-DB_USER= postgres
-DB_PASSWORD= VasW@853G
-DB_HOST= db.pnfovyyxikhisuennqfv.supabase.co
-DB_NAME= postgres
+DB_USER= <your_username>
+DB_PASSWORD= <your_password>
+DB_HOST= <your_host>
+DB_NAME= <your_database_name>
+REDIS_URL= <your_redis_url>
 ```
 
 ### Step 6: Move to the server directory
@@ -85,7 +86,7 @@ Your application will now be accessible at your_domain
 ### 1. Get All FAQs
 #### Request
 ```bash
-your_domain/api/faqs/ 
+http://0.0.0.0:8000/api/faqs/ 
 ```
 Optional Query Parameter: lang – The language code (e.g., en, hi, bn). If not provided, the default language is English (en).
 

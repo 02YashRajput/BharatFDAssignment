@@ -96,7 +96,7 @@ else:
         'NAME': os.getenv('DB_NAME'),
         'USER': os.getenv('DB_USER'),
         'PASSWORD': os.getenv('DB_PASSWORD'),
-        'HOST': os.getenv('DB_HOST'),  # The URL provided by Supabase (host)
+        'HOST': os.getenv('DB_HOST'),  
         'PORT': '5432',  # PostgreSQL default port
     }
 }
@@ -159,4 +159,5 @@ ALLOWED_HOSTS = [
     'bharatfdassignment-97kk.onrender.com',
     'localhost',
     '127.0.0.1',
+    '0.0.0.0'
 ]
