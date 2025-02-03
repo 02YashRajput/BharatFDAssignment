@@ -27,8 +27,6 @@ REDIS_URL = <yout_redis_url>
 
 ### Step 2: Create docker-compose.yml
 ```yml
-version: '3.8'
-
 services:
   db:
     image: postgres:13
